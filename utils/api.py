@@ -13,7 +13,7 @@ class Library_api:
         json_for_create_new_book = {
             'name': 'Война и мир',
             'author': 'Лев Толстой',
-            'year': 1887,
+            'year': 1869,
             'isElectronicBook': False
         }
         post_resource = '/api/books'
@@ -41,9 +41,10 @@ class Library_api:
         print(put_url)
         json_for_update_new_book = {
             "id": book_id,
-            "name": "Алексей Балабанов",
-            "year": 2012,
-            'isElectronicBook': True
+            "name": 'Евгений Онегин',
+            "author": 'Александр Пушкин',
+            "year": 1830,
+            'isElectronicBook': False
         }
         result_put = HttpMethods.put(put_url, json_for_update_new_book)
         print(result_put.text)
