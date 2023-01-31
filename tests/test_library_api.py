@@ -1,11 +1,14 @@
 import json
 from utils.checking import Checking
 from utils.api import Library_api
+import allure
 
 
+@allure.epic("Test crate new book")
 class Test_create_book:
     """ Тест на создание, изменение и удаление новой книги"""
 
+    @allure.description("Test crate, update, delete new book")
     def test_create_new_book(self):
         print('Method POST - метод создание новой книги')
 

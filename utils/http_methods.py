@@ -1,4 +1,7 @@
+import allure
 import requests
+
+from utils.logger import Logger
 
 
 class HttpMethods:
@@ -9,20 +12,32 @@ class HttpMethods:
 
     @staticmethod
     def get(url):
-        result = requests.get(url, headers=HttpMethods.headers, cookies=HttpMethods.cookie)
-        return result
+        with allure.step("GET"):
+            Logger.add_request(url, method="GET")
+            result = requests.get(url, headers=HttpMethods.headers, cookies=HttpMethods.cookie)
+            Logger.add_response(result)
+            return result
 
     @staticmethod
     def post(url, body):
-        result = requests.post(url, json=body, headers=HttpMethods.headers, cookies=HttpMethods.cookie)
-        return result
+        with allure.step("POST"):
+            Logger.add_request(url, method="POST")
+            result = requests.post(url, json=body, headers=HttpMethods.headers, cookies=HttpMethods.cookie)
+            Logger.add_response(result)
+            return result
 
     @staticmethod
     def put(url, body):
-        result = requests.put(url, json=body, headers=HttpMethods.headers, cookies=HttpMethods.cookie)
-        return result
+        with allure.step("PUT"):
+            Logger.add_request(url, method="PUT")
+            result = requests.put(url, json=body, headers=HttpMethods.headers, cookies=HttpMethods.cookie)
+            Logger.add_response(result)
+            return result
 
     @staticmethod
     def delete(url, body):
-        result = requests.delete(url, json=body, headers=HttpMethods.headers, cookies=HttpMethods.cookie)
-        return result
+        with allure.step("DELETE"):
+            Logger.add_request(url, method="DELETE")
+            result = requests.delete(url, json=body, headers=HttpMethods.headers, cookies=HttpMethods.cookie)
+            Logger.add_response(result)
+            return result

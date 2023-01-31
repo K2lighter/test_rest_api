@@ -1,0 +1,84 @@
+
+-----
+Test: tests/test_library_api.py::Test_create_book::test_create_new_book (call)
+Time: 2023-01-31 15:43:31.574387
+Request method: POST
+Request URL: http://192.168.1.64:5000//api/books
+
+Response code: 201
+Response text: {"book":{"author":"\u041b\u0435\u0432 \u0422\u043e\u043b\u0441\u0442\u043e\u0439","id":8,"isElectronicBook":false,"name":"\u0412\u043e\u0439\u043d\u0430 \u0438 \u043c\u0438\u0440","year":1869}}
+
+Response headers: {'Server': 'Werkzeug/2.2.2 Python/3.10.8', 'Date': 'Tue, 31 Jan 2023 12:43:31 GMT', 'Content-Type': 'application/json', 'Content-Length': '194', 'Connection': 'close'}
+Response cookies: {}
+
+-----
+
+-----
+Test: tests/test_library_api.py::Test_create_book::test_create_new_book (call)
+Time: 2023-01-31 15:43:31.589731
+Request method: GET
+Request URL: http://192.168.1.64:5000//api/books/8
+
+Response code: 200
+Response text: {"book":{"author":"\u041b\u0435\u0432 \u0422\u043e\u043b\u0441\u0442\u043e\u0439","id":8,"isElectronicBook":false,"name":"\u0412\u043e\u0439\u043d\u0430 \u0438 \u043c\u0438\u0440","year":1869}}
+
+Response headers: {'Server': 'Werkzeug/2.2.2 Python/3.10.8', 'Date': 'Tue, 31 Jan 2023 12:43:31 GMT', 'Content-Type': 'application/json', 'Content-Length': '194', 'Connection': 'close'}
+Response cookies: {}
+
+-----
+
+-----
+Test: tests/test_library_api.py::Test_create_book::test_create_new_book (call)
+Time: 2023-01-31 15:43:31.589731
+Request method: PUT
+Request URL: http://192.168.1.64:5000/api/books/8
+
+Response code: 200
+Response text: {"book":{"author":"\u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440 \u041f\u0443\u0448\u043a\u0438\u043d","id":8,"isElectronicBook":false,"name":"\u0415\u0432\u0433\u0435\u043d\u0438\u0439 \u041e\u043d\u0435\u0433\u0438\u043d","year":1830}}
+
+Response headers: {'Server': 'Werkzeug/2.2.2 Python/3.10.8', 'Date': 'Tue, 31 Jan 2023 12:43:31 GMT', 'Content-Type': 'application/json', 'Content-Length': '247', 'Connection': 'close'}
+Response cookies: {}
+
+-----
+
+-----
+Test: tests/test_library_api.py::Test_create_book::test_create_new_book (call)
+Time: 2023-01-31 15:43:31.597430
+Request method: GET
+Request URL: http://192.168.1.64:5000//api/books/8
+
+Response code: 200
+Response text: {"book":{"author":"\u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440 \u041f\u0443\u0448\u043a\u0438\u043d","id":8,"isElectronicBook":false,"name":"\u0415\u0432\u0433\u0435\u043d\u0438\u0439 \u041e\u043d\u0435\u0433\u0438\u043d","year":1830}}
+
+Response headers: {'Server': 'Werkzeug/2.2.2 Python/3.10.8', 'Date': 'Tue, 31 Jan 2023 12:43:31 GMT', 'Content-Type': 'application/json', 'Content-Length': '247', 'Connection': 'close'}
+Response cookies: {}
+
+-----
+
+-----
+Test: tests/test_library_api.py::Test_create_book::test_create_new_book (call)
+Time: 2023-01-31 15:43:31.600232
+Request method: DELETE
+Request URL: http://192.168.1.64:5000//api/books/8
+
+Response code: 200
+Response text: {"result":true}
+
+Response headers: {'Server': 'Werkzeug/2.2.2 Python/3.10.8', 'Date': 'Tue, 31 Jan 2023 12:43:31 GMT', 'Content-Type': 'application/json', 'Content-Length': '16', 'Connection': 'close'}
+Response cookies: {}
+
+-----
+
+-----
+Test: tests/test_library_api.py::Test_create_book::test_create_new_book (call)
+Time: 2023-01-31 15:43:31.602993
+Request method: GET
+Request URL: http://192.168.1.64:5000//api/books/8
+
+Response code: 404
+Response text: {"error":"Book with id 8 not found"}
+
+Response headers: {'Server': 'Werkzeug/2.2.2 Python/3.10.8', 'Date': 'Tue, 31 Jan 2023 12:43:31 GMT', 'Content-Type': 'application/json', 'Content-Length': '37', 'Connection': 'close'}
+Response cookies: {}
+
+-----
