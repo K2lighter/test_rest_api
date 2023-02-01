@@ -47,7 +47,6 @@ class Library_api:
             'isElectronicBook': False
         }
         result_put = HttpMethods.put(put_url, json_for_update_new_book)
-        print(result_put.text)
         return result_put
 
     @staticmethod
@@ -59,7 +58,6 @@ class Library_api:
             "id": book_id
         }
         result_delete = HttpMethods.delete(delete_url, json_for_delete_new_book)
-        print(result_delete.text)
         return result_delete
 
     @staticmethod

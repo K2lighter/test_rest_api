@@ -2,6 +2,8 @@ import json
 from utils.checking import Checking
 from utils.api import Library_api
 import allure
+from utils.schemas.post import POST_SCHEMA
+from jsonschema import validate
 
 
 @allure.epic("Test crate new book")
@@ -17,6 +19,7 @@ class Test_create_book:
         book_id = str(check_post.get("book")["id"])  # получаем id новой книги
         Checking.check_status_code(result_post, 201)
         Checking.check_json_token(result_post, ['book'])
+        validate(check_post, POST_SCHEMA)
 
         print("Method GET after POST - метод для проверки создания новой книги")
 
@@ -31,7 +34,7 @@ class Test_create_book:
         result_put = Library_api.put_new_book(book_id)
         check_put = result_put.json().get("book")["name"]  # получаем значение обязательного поля "name"
         Checking.check_status_code(result_put, 200)
-        Checking.check_name_value(check_put, "Евгений Онегин")
+        Checking.check_name_value(check_put, 'Евгений Онегин')
 
         print("Method GET after PUT - метод для проверки изменения инфы о новой книге")
 
@@ -56,4 +59,3 @@ class Test_create_book:
 
         # python -m pytest --alluredir=test_results/test_library_api.py
         # allure serve test_results/test_library_api.py
-
