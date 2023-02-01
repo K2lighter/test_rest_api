@@ -9,11 +9,9 @@ class Checking:
     def check_status_code(response: Response, status_code):
         """Метод для проверки статуса кода"""
 
-        assert status_code == response.status_code
-        if status_code == response.status_code:
-            print(f"Успех, тест пройден!!! Статус код = {response.status_code}")
-        else:
-            print(f"Провал, тест не пройден!!! Статус код = {response.status_code}")
+        assert status_code == response.status_code, "Провал, тест не пройден!!!"
+        print(f"Успех, тест пройден!!! Статус код = {response.status_code}")
+
 
     @staticmethod
     def check_json_token(response: Response, expected_value):

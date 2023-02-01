@@ -61,3 +61,20 @@ class Library_api:
         result_delete = HttpMethods.delete(delete_url, json_for_delete_new_book)
         print(result_delete.text)
         return result_delete
+
+    @staticmethod
+    def create_book_with_required_param(json):
+        """Метод для создания книги с обязательным параметром name"""
+        post_resource = '/api/books'
+        post_url = base_url + post_resource
+        print(post_url)
+        result_post = HttpMethods.post(post_url, json)
+        return result_post
+
+    @staticmethod
+    def get_all_books():
+        get_resource = '/api/books'
+        get_url = base_url + get_resource
+        print(get_url)
+        result_get = HttpMethods.get(get_url)
+        return result_get
