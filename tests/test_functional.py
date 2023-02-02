@@ -7,13 +7,13 @@ import allure
 # Переменные для тестов
 
 real_id = 1
-fake_id = 212
+fake_id = 99999999999
 zero_id = 0
 json_for_create_new_book = {"name": "Война и мир"}
 json_with_int_name = {"name": 21}
 json_with_year = {"year": "ttt", "name": "Война и мир"}
 json_with_author = {"author": "leo", "name": "Война и мир"}
-json_with_is_electronic = {"isElectronicBook": "ttt", "name": "Война и мир"}
+json_with_str_isElectronic = {"isElectronicBook": "ttt", "name": "Война и мир"}
 
 
 @allure.epic("Check some functional")
@@ -26,6 +26,7 @@ class TestCases:
 
         result_get = Library_api.get_all_books()
         check_post = result_get.json()
+        print(check_post)
         validate(check_post, POST_SCHEMA)
         return Checking.check_status_code(result_get, 200)
 
@@ -34,6 +35,8 @@ class TestCases:
         """Получить книгу по существующему id"""
 
         result_get = Library_api.get_new_book(str(real_id))
+        check_get = result_get.json()
+        validate(check_get, POST_SCHEMA)
         return Checking.check_status_code(result_get, 200)
 
     @allure.description("Get book by fake id")
@@ -68,9 +71,9 @@ class TestCases:
 
         result_post = Library_api.create_book_with_required_param(json_with_year)  # негативный тест
         check_post = result_post.json()
-        print(result_post.status_code)
-        validate(check_post, POST_SCHEMA)
-        return Checking.check_status_code(result_post, 201)
+        year = result_post.json().get("book")["year"]
+        Checking.check_name_value(type(year), int)
+        return Checking.check_status_code(result_post, 400)
 
     @allure.description("Check validation param 'name'")
     def test_param_name(self, set_up):
@@ -78,18 +81,19 @@ class TestCases:
 
         result_post = Library_api.create_book_with_required_param(json_with_int_name)
         check_post = result_post.json()
-        validate(check_post, POST_SCHEMA)
+        name = result_post.json().get("book")["name"]
+        Checking.check_name_value(type(name), str)
         Checking.check_json_value_token(result_post, 'error', 'Name must be String type (Unicode)')
         return Checking.check_status_code(result_post, 400)
 
     @allure.description("Check validation param 'isElectronic'")
-    def test_param_iselectronic(self, set_up):
+    def test_param_isElectronic(self, set_up):
         """Проверка валидации поля - isElectronic, значение не должно быть строкой"""
 
-        result_post = Library_api.create_book_with_required_param(json_with_is_electronic)  # негативный тест
+        result_post = Library_api.create_book_with_required_param(json_with_str_isElectronic)  # негативный тест
         check_post = result_post.json()
-        # validate(check_post, POST_SCHEMA)
-        print(result_post.status_code)
+        isElectronic = result_post.json().get("book")["isElectronic"]
+        Checking.check_name_value(type(isElectronic), bool)
         return Checking.check_status_code(result_post, 400)
 
     @allure.description("Check update param 'name'")
@@ -107,6 +111,6 @@ class TestCases:
         Library_api.delete_new_book(str(book_id))  # для удаления созданной книги
         result_get = Library_api.get_new_book(str(book_id))
         return Checking.check_status_code(result_get, 404)
-#
+
 # python -m pytest --alluredir=test_results/test_library_api.py
 # allure serve test_results/test_library_api.py
