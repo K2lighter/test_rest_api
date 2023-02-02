@@ -1,4 +1,3 @@
-import json
 from utils.checking import Checking
 from utils.api import Library_api
 import allure
@@ -8,10 +7,12 @@ from jsonschema import validate
 
 @allure.epic("Test crate new book")
 class Test_create_book:
-    """ Тест на создание, изменение и удаление новой книги"""
+    """Класс для тестирования API"""
 
     @allure.description("Test crate, update, delete new book")
     def test_create_new_book(self):
+        """ Тест на создание, изменение и удаление новой книги"""
+
         print('Method POST - метод создание новой книги')
 
         result_post = Library_api.create_new_book()

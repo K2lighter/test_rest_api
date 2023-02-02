@@ -1,9 +1,10 @@
 from pydantic import BaseModel, Field
 
 
-class Post(BaseModel):
+class POST(BaseModel):
     """Класс для создания параметров валидации"""
 
+    book: str
     id: int
     name: str
     author: str

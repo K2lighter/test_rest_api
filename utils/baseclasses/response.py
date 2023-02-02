@@ -22,3 +22,4 @@ class Response:
             assert self.response_status == status_code
 
         return self
+
