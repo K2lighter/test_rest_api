@@ -1,5 +1,6 @@
 from utils.http_methods import HttpMethods
 
+
 base_url = 'http://192.168.1.64:5000/'
 
 
@@ -71,6 +72,5 @@ class Library_api:
     def get_all_books():
         get_resource = '/api/books'
         get_url = base_url + get_resource
-        print(get_url)
         result_get = HttpMethods.get(get_url)
         return result_get

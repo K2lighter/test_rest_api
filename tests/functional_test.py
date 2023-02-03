@@ -1,9 +1,6 @@
-from utils.baseclasses.response import Response
-from utils.enums.global_enums import GlobalErrorMessages
+import json
 from utils.checking import Checking
 from utils.api import Library_api
-from utils.schemas.post import POST_SCHEMA
-from jsonschema import validate
 import allure
 
 # Переменные для тестов
@@ -11,28 +8,47 @@ import allure
 real_id = 1
 zero_id = 0
 fake_id = 99999999999
+
+# last_id = str(json.loads(Library_api.get_all_books().text)['books'][-1]['id'])
+# name = json.loads(Library_api.get_all_books().text)['books'][-1]['name']
+
 json_for_create_new_book = {"name": "Война и мир"}
 json_with_int_name = {"name": 21}
 json_with_year = {"year": "ttt", "name": "Война и мир"}
 json_with_author = {"author": "leo", "name": "Война и мир"}
 json_with_str_isElectronic = {"isElectronicBook": "ttt", "name": "Война и мир"}
-result_post = Library_api.create_book_with_required_param(json_for_create_new_book)
-name = result_post.json().get("book")["name"]  # получаем значение обязательного поля "name"
-book_id = str(result_post.json().get("book")["id"])  # получаем значение обязательного поля "name"
-result_put = Library_api.put_new_book(book_id)  # изменяем значение обязательного поля "name"
-new_name = result_put.json().get("book")["name"]  # получаем новое значение обязательного поля "name"
 
 """Функциональное тестирование с применением фикстур"""
 
 
+@allure.description("Check name, after changed")
 def test_method_put(set_up, create_and_delete_book):
-    """Порверка на возможность изменения значения поля name с сущ. значением"""
+    """Порверка на возможность изменения значения поля 'name' с сущ. значением на валидное для поля значение"""
 
-    Checking.check_name_value(name, "Война и мир")
-    print(f"Старое название: {name}")
-    test_object = Library_api.put_new_book(book_id)
-    Checking.check_status_code(test_object, 200)
-    print(f"Новое название: {new_name}")
-    Checking.check_name_value(new_name, "Евгений Онегин")
+    print(f"Старое название: {json.loads(Library_api.get_all_books().text)['books'][-1]['name']}")
+    test_object = Library_api.put_new_book(str(json.loads(Library_api.get_all_books().text)['books'][-1]['id']))
+    print(f"Новое название: {json.loads(Library_api.get_all_books().text)['books'][-1]['name']}")
+    Checking.check_name_value(json.loads(Library_api.get_all_books().text)['books'][-1]['name'], "Евгений Онегин")
+    return Checking.check_status_code(test_object, 200)
+
+
+@allure.description("Check create new book")
+def test_method_create(set_up, delete_book):
+    """Проверка на возможность создания новой книги, все поля заполнены и валидны"""
+
+    print("CREATE BOOK")
+    test_object = Library_api.create_new_book()
+    Checking.check_name_value(test_object.json().get('book')['name'], "Война и мир")
+    print(f"Создана новая книга: {test_object.json().get('book')['name']}")
+    return Checking.check_status_code(test_object, 201)
+
+
+@allure.description("Check name validation")
+def test_validation_name(set_up):
+    """Проверка валидации поля 'name' на невалидный для поля тип int"""
+
+    test_object = Library_api.create_book_with_required_param(json_with_int_name)
+    Checking.check_json_value_token(test_object, 'error', 'Name must be String type (Unicode)')
+    return Checking.check_status_code(test_object, 400)
 
 
