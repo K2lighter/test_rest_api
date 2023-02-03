@@ -1,3 +1,5 @@
+import pytest
+
 from utils.checking import Checking
 from utils.api import Library_api
 from utils.schemas.post import POST_SCHEMA
@@ -20,6 +22,7 @@ json_with_str_isElectronic = {"isElectronicBook": "ttt", "name": "Война и 
 class TestCases:
     """Класс с проверками"""
 
+    @pytest.mark.development
     @allure.description("Get all book test")
     def test_get_all_books(self, set_up):
         """Получить список всех книг"""
@@ -30,6 +33,7 @@ class TestCases:
         validate(check_post, POST_SCHEMA)
         return Checking.check_status_code(result_get, 200)
 
+    @pytest.mark.development
     @allure.description("Get book by id")
     def test_get_book_by_real_id(self, set_up):
         """Получить книгу по существующему id"""
@@ -39,6 +43,7 @@ class TestCases:
         validate(check_get, POST_SCHEMA)
         return Checking.check_status_code(result_get, 200)
 
+    @pytest.mark.development
     @allure.description("Get book by fake id")
     def test_get_book_by_fake_id(self, set_up):
         """Получить книгу по не существующему id"""
@@ -46,6 +51,7 @@ class TestCases:
         result_get = Library_api.get_new_book(str(fake_id))
         return Checking.check_status_code(result_get, 404)
 
+    @pytest.mark.development
     @allure.description("Get book by id=0")
     def test_get_book_by_zero_id(self, set_up):
         """Получить книгу по id равной нулю"""
@@ -54,17 +60,18 @@ class TestCases:
         Checking.check_json_value_token(result_get, 'error', 'Book with id 0 not found')
         return Checking.check_status_code(result_get, 404)
 
+    @pytest.mark.development
     @allure.description("Create book with 1 required param - 'name' ")
-    def test_create_book_with_required_param(self, set_up):
+    def test_create_book_with_required_param(self, set_up, delete_book):
         """Тестирование создание книги с 1 обязательным параметром 'name'. """
 
         result_post = Library_api.create_book_with_required_param(json_for_create_new_book)
+        print("CREATE BOOK")
         name = result_post.json().get("book")["name"]  # получаем значение обязательного поля "name"
-        book_id = result_post.json().get("book")["id"]
-        Checking.check_status_code(result_post, 201)
         Checking.check_name_value(name, "Война и мир")
-        return Library_api.delete_new_book(str(book_id))  # для удаления созданной книги
+        return Checking.check_status_code(result_post, 201)
 
+    @pytest.mark.development
     @allure.description("Check validation param - 'year'")
     def test_param_year(self, set_up):
         """Проверка валидации поля - year, значение не должно быть строкой"""
@@ -75,6 +82,7 @@ class TestCases:
         Checking.check_name_value(type(year), int)
         return Checking.check_status_code(result_post, 400)
 
+    @pytest.mark.skip("this test realize with fixture in another file")
     @allure.description("Check validation param 'name'")
     def test_param_name(self, set_up):
         """Проверка валидации поля - name, значение не должно быть числом"""
@@ -86,16 +94,18 @@ class TestCases:
         Checking.check_json_value_token(result_post, 'error', 'Name must be String type (Unicode)')
         return Checking.check_status_code(result_post, 400)
 
+    @pytest.mark.development
     @allure.description("Check validation param 'isElectronic'")
-    def test_param_isElectronic(self, set_up):
+    def test_validation_isElectronic(self, set_up):
         """Проверка валидации поля - isElectronic, значение не должно быть строкой"""
 
         result_post = Library_api.create_book_with_required_param(json_with_str_isElectronic)  # негативный тест
         check_post = result_post.json()
-        isElectronic = result_post.json().get("book")["isElectronic"]
-        Checking.check_name_value(type(isElectronic), bool)
+        test_object = result_post.json().get("book")["isElectronic"]
+        Checking.check_name_value(type(test_object), bool)
         return Checking.check_status_code(result_post, 400)
 
+    @pytest.mark.skip("this test realize with fixture in another file")
     @allure.description("Check update param 'name'")
     def test_update_param_name(self, set_up):
         """Порверка на возможность изменения значения поля name с сущ. значением"""

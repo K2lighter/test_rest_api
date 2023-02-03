@@ -1,4 +1,7 @@
 import json
+
+import pytest
+
 from utils.checking import Checking
 from utils.api import Library_api
 import allure
@@ -9,9 +12,6 @@ real_id = 1
 zero_id = 0
 fake_id = 99999999999
 
-# last_id = str(json.loads(Library_api.get_all_books().text)['books'][-1]['id'])
-# name = json.loads(Library_api.get_all_books().text)['books'][-1]['name']
-
 json_for_create_new_book = {"name": "Война и мир"}
 json_with_int_name = {"name": 21}
 json_with_year = {"year": "ttt", "name": "Война и мир"}
@@ -21,6 +21,7 @@ json_with_str_isElectronic = {"isElectronicBook": "ttt", "name": "Война и 
 """Функциональное тестирование с применением фикстур"""
 
 
+@pytest.mark.development
 @allure.description("Check name, after changed")
 def test_method_put(set_up, create_and_delete_book):
     """Порверка на возможность изменения значения поля 'name' с сущ. значением на валидное для поля значение"""
@@ -32,6 +33,7 @@ def test_method_put(set_up, create_and_delete_book):
     return Checking.check_status_code(test_object, 200)
 
 
+@pytest.mark.development
 @allure.description("Check create new book")
 def test_method_create(set_up, delete_book):
     """Проверка на возможность создания новой книги, все поля заполнены и валидны"""
@@ -43,6 +45,7 @@ def test_method_create(set_up, delete_book):
     return Checking.check_status_code(test_object, 201)
 
 
+@pytest.mark.development
 @allure.description("Check name validation")
 def test_validation_name(set_up):
     """Проверка валидации поля 'name' на невалидный для поля тип int"""
@@ -50,5 +53,3 @@ def test_validation_name(set_up):
     test_object = Library_api.create_book_with_required_param(json_with_int_name)
     Checking.check_json_value_token(test_object, 'error', 'Name must be String type (Unicode)')
     return Checking.check_status_code(test_object, 400)
-
-

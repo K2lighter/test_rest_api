@@ -36,14 +36,14 @@ def delete_book():
     """DELETE BOOK"""
 
     count_book_before = len(json.loads(Library_api.get_all_books().text)['books'])
-    print(count_book_before)
     yield
     last_book = str(json.loads(Library_api.get_all_books().text)['books'][-1]['id'])
     count_book_after = len(json.loads(Library_api.get_all_books().text)['books'])
-    print(count_book_after)
     if count_book_after > count_book_before:
         Library_api.delete_new_book(last_book)
         print("DELETE BOOK")
+
+
 
 
 

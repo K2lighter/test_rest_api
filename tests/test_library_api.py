@@ -1,3 +1,5 @@
+import pytest
+
 from utils.checking import Checking
 from utils.api import Library_api
 import allure
@@ -9,9 +11,10 @@ from jsonschema import validate
 class Test_create_book:
     """Класс для тестирования API"""
 
+    @pytest.mark.development
     @allure.description("Test crate, update, delete new book")
     def test_create_new_book(self):
-        """ Тест на создание, изменение и удаление новой книги"""
+        """Тест на создание, изменение и удаление новой книги, все поля заполнены и валидны"""
 
         print('Method POST - метод создание новой книги')
 
@@ -58,5 +61,7 @@ class Test_create_book:
 
         print("Тест на создание, изменение и удаление книги прошел успешно!")
 
+        # pytest -s -v -k development test_library_api.py
         # python -m pytest --alluredir=test_results/test_library_api.py
         # allure serve test_results/test_library_api.py
+        # pytest -s -v -k "not development" test_library_api.py
