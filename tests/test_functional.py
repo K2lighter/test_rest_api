@@ -8,9 +8,9 @@ import allure
 
 # Переменные для тестов
 
+zero_id = 0
 real_id = 1
 fake_id = 99999999999
-zero_id = 0
 json_for_create_new_book = {"name": "Война и мир"}
 json_with_int_name = {"name": 21}
 json_with_year = {"year": "ttt", "name": "Война и мир"}
@@ -121,6 +121,7 @@ class TestCases:
         Library_api.delete_new_book(str(book_id))  # для удаления созданной книги
         result_get = Library_api.get_new_book(str(book_id))
         return Checking.check_status_code(result_get, 404)
+
 
 # python -m pytest --alluredir=test_results/test_library_api.py
 # allure serve test_results/test_library_api.py

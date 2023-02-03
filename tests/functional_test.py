@@ -11,7 +11,6 @@ import allure
 real_id = 1
 zero_id = 0
 fake_id = 99999999999
-
 json_for_create_new_book = {"name": "Война и мир"}
 json_with_int_name = {"name": 21}
 json_with_year = {"year": "ttt", "name": "Война и мир"}
