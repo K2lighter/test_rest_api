@@ -1,10 +1,10 @@
-import pytest
-
-from utils.checking import Checking
-from utils.api import Library_api
 import allure
-from utils.schemas.post import POST_SCHEMA
+import pytest
 from jsonschema import validate
+
+from utils.api import Library_api
+from utils.checking import Checking
+from utils.schemas.post import POST_SCHEMA
 
 
 @allure.epic("Test crate new book")
@@ -61,7 +61,10 @@ class Test_create_book:
 
         print("Тест на создание, изменение и удаление книги прошел успешно!")
 
+        # для прогона тестов
+
         # pytest -s -v -k development test_library_api.py
         # python -m pytest --alluredir=test_results/test_library_api.py
-        # allure serve test_results/test_library_api.py
+        # allure serve allure_report/test_library_api.py
         # pytest -s -v -k "not development" test_library_api.py
+        # pytest -s -v --durations=1 test_library_api.py

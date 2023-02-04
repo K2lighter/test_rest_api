@@ -1,10 +1,9 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
-class POST(BaseModel):
+class BookPydantic(BaseModel):
     """Класс для создания параметров валидации"""
 
-    book: str
     id: int
     name: str
     author: str

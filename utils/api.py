@@ -1,4 +1,7 @@
+from pydantic import ValidationError
+
 from utils.http_methods import HttpMethods
+from utils.pydantic_schemas.post import BookPydantic
 
 
 base_url = 'http://192.168.1.64:5000/'
@@ -70,7 +73,20 @@ class Library_api:
 
     @staticmethod
     def get_all_books():
+        """Метод для получения всех книг"""
         get_resource = '/api/books'
         get_url = base_url + get_resource
         result_get = HttpMethods.get(get_url)
         return result_get
+
+    @staticmethod
+    def validate(json):
+        """
+        Метод для валидации всех полей согласно схеме pydantic
+        """
+        try:
+            post = BookPydantic.parse_obj(json)
+            print(post)
+        except ValidationError as error:
+            print("Exception", error.json())
+
