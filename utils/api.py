@@ -1,8 +1,9 @@
+import json
+
 from pydantic import ValidationError
 
 from utils.http_methods import HttpMethods
 from utils.pydantic_schemas.post import BookPydantic
-
 
 base_url = 'http://192.168.1.64:5000/'
 
@@ -12,18 +13,12 @@ class Library_api:
      добавлять, удалять, изменять, получать информацию"""
 
     @staticmethod
-    def create_new_book():
+    def create_new_book(json_post):
         """Метод для создания новой книги"""
-        json_for_create_new_book = {
-            'name': 'Война и мир',
-            'author': 'Лев Толстой',
-            'year': 1869,
-            'isElectronicBook': False
-        }
         post_resource = '/api/books'
         post_url = base_url + post_resource
         print(post_url)
-        result_post = HttpMethods.post(post_url, json_for_create_new_book)
+        result_post = HttpMethods.post(post_url, json_post)
         return result_post
 
     @staticmethod
@@ -36,40 +31,26 @@ class Library_api:
         return result_get
 
     @staticmethod
-    def put_new_book(book_id):
+    def put_new_book(json_put):
         """Метод для изменения новой книги"""
         put_resource = 'api/books/'
+        book_id = str(json.loads(Library_api.get_all_books().text)['books'][-1]['id'])
         put_url = base_url + put_resource + book_id
         print(put_url)
-        json_for_update_new_book = {
-            "id": book_id,
-            "name": 'Евгений Онегин',
-            "author": 'Александр Пушкин',
-            "year": 1830,
-            'isElectronicBook': False
-        }
-        result_put = HttpMethods.put(put_url, json_for_update_new_book)
+        result_put = HttpMethods.put(put_url, json_put)
         return result_put
 
     @staticmethod
-    def delete_new_book(book_id):
+    def delete_new_book(json_delete):
         """Метод для удаления новой книги"""
         delete_resource = '/api/books/'
+        book_id = str(json.loads(Library_api.get_all_books().text)['books'][-1]['id'])
         delete_url = base_url + delete_resource + book_id
         json_for_delete_new_book = {
             "id": book_id
         }
-        result_delete = HttpMethods.delete(delete_url, json_for_delete_new_book)
+        result_delete = HttpMethods.delete(delete_url, json_delete)
         return result_delete
-
-    @staticmethod
-    def create_book_with_required_param(json):
-        """Метод для создания книги с обязательным параметром name"""
-        post_resource = '/api/books'
-        post_url = base_url + post_resource
-        print(post_url)
-        result_post = HttpMethods.post(post_url, json)
-        return result_post
 
     @staticmethod
     def get_all_books():
@@ -80,13 +61,17 @@ class Library_api:
         return result_get
 
     @staticmethod
-    def validate(json):
+    def validate(json_validate):
         """
         Метод для валидации всех полей согласно схеме pydantic
         """
         try:
-            post = BookPydantic.parse_obj(json)
-            print(post)
+            post = BookPydantic.parse_obj(json_validate)
         except ValidationError as error:
             print("Exception", error.json())
-
+        else:
+            print(f"id = {post.id}, тип {type(post.id)}"
+                  f"\nname = {post.name}, тип {type(post.name)},"
+                  f"\nyear = {post.year}, тип {type(post.year)},"
+                  f"\nauthor = {post.author}, тип {type(post.author)},"
+                  f"\nisElectronicBook = {post.isElectronicBook}, тип {type(post.isElectronicBook)}")

@@ -1,7 +1,7 @@
 import allure
 import pytest
 from jsonschema import validate
-
+import variables
 from utils.api import Library_api
 from utils.checking import Checking
 from utils.schemas.post import POST_SCHEMA
@@ -18,7 +18,7 @@ class Test_create_book:
 
         print('Method POST - метод создание новой книги')
 
-        result_post = Library_api.create_new_book()
+        result_post = Library_api.create_new_book(variables.json_all_valid_param)
         check_post = result_post.json()
         book_id = str(check_post.get("book")["id"])  # получаем id новой книги
         Checking.check_status_code(result_post, 201)
