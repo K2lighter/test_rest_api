@@ -1,31 +1,51 @@
 import json
-import variables
+
 import pytest
 
+import variables
 from utils.api import Library_api
 
 
-@pytest.fixture()
+@pytest.fixture
 def set_up():
-    """Метод для обозначения начала и конца теста"""
+    """
+    Метод для обозначения начала и конца теста
+    """
     print("START TEST")
     yield
     print("END TEST")
 
 
 @pytest.fixture
+def create_book():
+    """
+    Метод создает книгу все поля заполнены и валидны
+    """
+    Library_api.create_new_book(variables.json_all_valid_param_4)
+    print("CREATE BOOK")
+
+
+@pytest.fixture
 def create_and_delete_book():
-    """CREATE AND DELETE BOOK"""
+    """
+    Метод создает новую книгу, все поля заполнены и валидны,
+    затем выполняется внутренняя функция,
+    в блоке yield новая книга удаляется
+    """
     Library_api.create_new_book(variables.json_all_valid_param)
     print("CREATE BOOK")
     yield
-    Library_api.delete_new_book(str(json.loads(Library_api.get_all_books().text)['books'][-1]['id']))
+    Library_api.delete_book_with_book_id(str(json.loads(Library_api.get_all_books().text)['books'][-1]['id']))
     print("DELETE BOOK")
 
 
 @pytest.fixture
 def delete_book():
-    """DELETE BOOK"""
+    """Метод считает количество книг в базе до исполнения внутренней функции,
+    затем исполняется внутренняя функция,
+    в блоке yield посчитается снова количество книг в базе,
+    если книга создалась, то она удаляется
+    """
 
     count_book_before = len(json.loads(Library_api.get_all_books().text)['books'])
     yield
@@ -35,5 +55,5 @@ def delete_book():
         Library_api.validate(
             Library_api.get_new_book(str(json.loads(Library_api.get_all_books().text)['books'][-1]['id'])).json()[
                 "book"])
-        Library_api.delete_new_book(last_book)
+        Library_api.delete_book_with_book_id(last_book)
         print("DELETE BOOK")

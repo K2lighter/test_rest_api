@@ -1,0 +1,8 @@
+#для прогона тестов
+
+
+python -m pytest --alluredir=test_results/test_library_api.py
+allure serve allure_report/test_library_api.py
+pytest -s -v -k "not development" test_library_api.py
+pytest -s -v --durations=1 test_library_api.py
+pytest -s -v -k development test_library_api.py

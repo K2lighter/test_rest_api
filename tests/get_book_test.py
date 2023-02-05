@@ -7,6 +7,8 @@ from utils.api import Library_api
 from utils.checking import Checking
 from utils.schemas.post import POST_SCHEMA
 
+"""Функциональное тестирование: метода get"""
+
 
 @allure.epic("Check some functional")
 class TestCases:
@@ -71,7 +73,6 @@ class TestCases:
         Checking.check_name_value(name, "Война и мир")
         return Checking.check_status_code(result_post, 201)
 
-    #
     @pytest.mark.development
     @allure.description("Check validation param - 'year'")
     def test_param_year(self, set_up):
@@ -97,25 +98,5 @@ class TestCases:
         Checking.check_json_value_token(result_post, 'error', 'Name must be String type (Unicode)')
         return Checking.check_status_code(result_post, 400)
 
-    #
-    @pytest.mark.skip("this test realize with fixture in another file")
-    @allure.description("Check update param 'name'")
-    def test_update_param_name(self, set_up):
-        """
-        Проверка на возможность изменения значения поля name с сущ. значением
-        - Тесткейс id: 18
-        """
-        result_post = Library_api.create_new_book(variables.json_all_valid_param)
-        name = result_post.json().get("book")["name"]  # получаем значение обязательного поля "name"
-        print(f"До изменения - {name}")
-        book_id = result_post.json().get("book")["id"]
-        result_put = Library_api.put_new_book(str(book_id))  # изменяем значение обязательного поля "name"
-        new_name = result_put.json().get("book")["name"]
-        print(f"После изменения - {new_name}")
-        Checking.check_name_value(new_name, "Евгений Онегин")
-        Library_api.delete_new_book(str(book_id))  # для удаления созданной книги
-        result_get = Library_api.get_new_book(str(book_id))
-        return Checking.check_status_code(result_get, 404)
 
-# python -m pytest --alluredir=allure_report/test_library_api.py
-# allure serve allure_report/test_library_api.py
+

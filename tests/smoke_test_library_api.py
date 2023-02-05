@@ -49,7 +49,7 @@ class Test_create_book:
 
         print("Method DELETE - метод для удаления новой книги")
 
-        result_delete = Library_api.delete_new_book(book_id)
+        result_delete = Library_api.delete_book_with_book_id(book_id)
         Checking.check_status_code(result_delete, 200)
         Checking.check_json_value_token(result_delete, 'result', True)
 
@@ -61,10 +61,3 @@ class Test_create_book:
 
         print("Тест на создание, изменение и удаление книги прошел успешно!")
 
-        # # для прогона тестов
-        #
-        # # pytest -s -v -k development test_library_api.py
-        # # python -m pytest --alluredir=test_results/test_library_api.py
-        # # allure serve allure_report/test_library_api.py
-        # # pytest -s -v -k "not development" test_library_api.py
-        # # pytest -s -v --durations=1 test_library_api.py

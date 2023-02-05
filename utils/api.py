@@ -41,15 +41,20 @@ class Library_api:
         return result_put
 
     @staticmethod
-    def delete_new_book(json_delete):
+    def delete_new_book():
         """Метод для удаления новой книги"""
         delete_resource = '/api/books/'
         book_id = str(json.loads(Library_api.get_all_books().text)['books'][-1]['id'])
         delete_url = base_url + delete_resource + book_id
-        json_for_delete_new_book = {
-            "id": book_id
-        }
-        result_delete = HttpMethods.delete(delete_url, json_delete)
+        result_delete = HttpMethods.delete(delete_url)
+        return result_delete
+
+    @staticmethod
+    def delete_book_with_book_id(book_id):
+        """Метод для удаления новой книги"""
+        delete_resource = '/api/books/'
+        delete_url = base_url + delete_resource + book_id
+        result_delete = HttpMethods.delete(delete_url)
         return result_delete
 
     @staticmethod

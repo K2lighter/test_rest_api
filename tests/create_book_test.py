@@ -1,11 +1,11 @@
-import json
-
 import allure
 import pytest
 
 import variables
 from utils.api import Library_api
 from utils.checking import Checking
+
+"""Функциональное тестирование: метода create (post)"""
 
 
 @pytest.mark.development
