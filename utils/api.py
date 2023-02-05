@@ -70,8 +70,5 @@ class Library_api:
         except ValidationError as error:
             print("Exception", error.json())
         else:
-            print(f"id = {post.id}, тип {type(post.id)}"
-                  f"\nname = {post.name}, тип {type(post.name)},"
-                  f"\nyear = {post.year}, тип {type(post.year)},"
-                  f"\nauthor = {post.author}, тип {type(post.author)},"
-                  f"\nisElectronicBook = {post.isElectronicBook}, тип {type(post.isElectronicBook)}")
+            print(f"тип name = {type(post.name)}, тип year =  {type(post.year)}"
+                  f"\nтип author = {type(post.author)}, тип isElectronicBook = {type(post.isElectronicBook)}")

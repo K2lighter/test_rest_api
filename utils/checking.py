@@ -40,7 +40,7 @@ class Checking:
         check = response.json()
         check_info = check.get(field_name)
         assert check_info == expected_value, GlobalErrorMessages.WRONG_COMPARISON
-        print(f'Успех, тест пройден!!! Фактическое значение поля {field_name} равно ожидаемому {expected_value}')
+        print(f'Успех, тест пройден!!! Фактическое значение поля равно ожидаемому')
 
     @staticmethod
     def check_json_search_word_in_value(response: Response, field_name, search_word):

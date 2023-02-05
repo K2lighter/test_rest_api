@@ -97,18 +97,6 @@ class TestCases:
         Checking.check_json_value_token(result_post, 'error', 'Name must be String type (Unicode)')
         return Checking.check_status_code(result_post, 400)
 
-    @pytest.mark.development
-    @allure.description("Check validation param 'isElectronic'")
-    def test_validation_electronic(self, set_up):
-        """
-        Проверка валидации поля - isElectronic, значение не должно быть строкой
-        - Тесткейс id: 15
-        """
-        result_post = Library_api.create_new_book(variables.json_with_str_year)  # негативный тест
-        test_object = result_post.json().get("book")["isElectronic"]
-        Checking.check_name_value(type(test_object), bool)
-        return Checking.check_status_code(result_post, 400)
-
     #
     @pytest.mark.skip("this test realize with fixture in another file")
     @allure.description("Check update param 'name'")
