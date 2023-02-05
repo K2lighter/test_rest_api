@@ -1,0 +1,8 @@
+START TEST
+http://192.168.1.64:5000//api/books
+Успех, тест пройден!!! Статус код = 201
+http://192.168.1.64:5000//api/books/6
+тип name = <class 'str'>, тип year =  <class 'int'>
+тип author = <class 'str'>, тип isElectronicBook = <class 'bool'>
+DELETE BOOK
+END TEST

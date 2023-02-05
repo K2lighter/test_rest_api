@@ -1,0 +1,14 @@
+START TEST
+http://192.168.1.64:5000//api/books
+http://192.168.1.64:5000//api/books/6
+Exception [
+  {
+    "loc": [
+      "year"
+    ],
+    "msg": "value is not a valid integer",
+    "type": "type_error.integer"
+  }
+]
+DELETE BOOK
+END TEST

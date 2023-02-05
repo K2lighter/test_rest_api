@@ -1,0 +1,14 @@
+START TEST
+http://192.168.1.64:5000//api/books
+http://192.168.1.64:5000//api/books/6
+Exception [
+  {
+    "loc": [
+      "isElectronicBook"
+    ],
+    "msg": "value could not be parsed to a boolean",
+    "type": "type_error.bool"
+  }
+]
+DELETE BOOK
+END TEST

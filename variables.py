@@ -9,6 +9,8 @@ json_with_str_year = {"year": "ttt", "name": "Война и мир", 'isElectron
 json_with_str_author = {'author': 'Lev Tolstoy', "name": "Война и мир"}
 json_with_str_isElectronic = {"isElectronicBook": "ttt", "name": "Война и мир"}
 json_all_valid_param = {'name': 'Война и мир', 'author': 'Лев Толстой', 'year': 1869, 'isElectronicBook': False}
+json_all_valid_param_4 = \
+    {"name": 'Евгений Онегин', "author": 'Александр Пушкин', 'isElectronicBook': False, "year": 1830}
 json_all_valid_param_2 = \
     {"name": 'Евгений Онегин', "year": 1830}
 json_without_required_param_name = \

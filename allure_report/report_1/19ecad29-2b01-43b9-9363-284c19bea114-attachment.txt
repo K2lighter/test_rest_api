@@ -1,0 +1,4 @@
+START TEST
+{'books': [{'author': 'Роберт Мартин', 'id': 1, 'isElectronicBook': False, 'name': 'Чистый код', 'year': 1998}, {'author': 'Томас Кормен, Чарльз Лейзерсон', 'id': 2, 'isElectronicBook': True, 'name': 'Алгоритмы: построение и анализ', 'year': 1989}, {'author': 'Lev Tolstoy', 'id': 3, 'isElectronicBook': False, 'name': 'Война и мир', 'year': 'ttt'}, {'author': 'Lev Tolstoy', 'id': 4, 'isElectronicBook': False, 'name': 'Война и мир', 'year': 'ttt'}, {'author': 'Lev Tolstoy', 'id': 5, 'isElectronicBook': False, 'name': 'Война и мир', 'year': 'ttt'}]}
+Успех, тест пройден!!! Статус код = 200
+END TEST

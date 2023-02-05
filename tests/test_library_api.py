@@ -35,7 +35,7 @@ class Test_create_book:
 
         print("Method PUT - метод для изменения новой книги")
 
-        result_put = Library_api.put_new_book(book_id)
+        result_put = Library_api.put_new_book(variables.json_all_valid_param_4)
         check_put = result_put.json().get("book")["name"]  # получаем значение обязательного поля "name"
         Checking.check_status_code(result_put, 200)
         Checking.check_name_value(check_put, 'Евгений Онегин')
@@ -61,10 +61,10 @@ class Test_create_book:
 
         print("Тест на создание, изменение и удаление книги прошел успешно!")
 
-        # для прогона тестов
-
-        # pytest -s -v -k development test_library_api.py
-        # python -m pytest --alluredir=test_results/test_library_api.py
-        # allure serve allure_report/test_library_api.py
-        # pytest -s -v -k "not development" test_library_api.py
-        # pytest -s -v --durations=1 test_library_api.py
+        # # для прогона тестов
+        #
+        # # pytest -s -v -k development test_library_api.py
+        # # python -m pytest --alluredir=test_results/test_library_api.py
+        # # allure serve allure_report/test_library_api.py
+        # # pytest -s -v -k "not development" test_library_api.py
+        # # pytest -s -v --durations=1 test_library_api.py

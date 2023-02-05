@@ -1,0 +1,8 @@
+START TEST
+http://192.168.1.64:5000//api/books
+CREATE BOOK
+Старое название: Война и мир
+http://192.168.1.64:5000/api/books/6
+Новое название: Война и мир
+DELETE BOOK
+END TEST
