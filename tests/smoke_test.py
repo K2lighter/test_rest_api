@@ -60,4 +60,3 @@ class Test_create_book:
         Checking.check_json_value_token(result_get, 'error', 'Book with id ' + book_id + ' not found')
 
         print("Тест на создание, изменение и удаление книги прошел успешно!")
-
